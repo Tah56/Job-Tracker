@@ -39,7 +39,7 @@
                <div class="card card-border bg-base-100 w-11/12">
                    <div class="card-body">
                        <h2 class="card-title font-medium text-lg text-[#323B49]">Total</h2>
-                       <p id="Total" class="font-bold text-2xl text-[#002C5C]">0</p>
+                       <p id="total" class="font-bold text-2xl text-[#002C5C]">0</p>
                        
                     </div>
                 </div>
@@ -69,20 +69,29 @@
             </div>
         </section>
         <!-- OPTIONS -->
-        <section class="space-x-2 mb-4">
-            <button class="btn py-2.5 px-8 btn-active bg-[#3B82F6] text-white">
+        <section id="btn-box" class="space-x-2 mb-4">
+            <button onclick="toggleStyle('all-btn')" id="all-btn" class="btn py-2.5 px-8 btn-active border-none bg-[#3B82F6] text-white">
                 All
             </button>
-            <button class="btn py-2.5 px-8 btn-active border-none bg-white text-[#64748B]">
+            <button onclick="toggleStyle('interview-btn')" id="interview-btn" class="btn py-2.5 px-8 btn-active border-none bg-white text-[#64748B]">
               Interview
             </button>
-            <button class="btn  py-2.5 px-8 btn-active border-none bg-white text-[#64748B]">
+            <button onclick="toggleStyle('rejected-btn')" id="rejected-btn" class="btn  py-2.5 px-8 btn-active border-none bg-white text-[#64748B]">
                Rejected
             </button>
 
         </section>
-
-        <section class="space-y-5">
+        <!-- card section  -->
+        <div id="no-data" class="card bg-base-100 w-full shadow-sm py-32 hidden">
+             <div class="card-body w-52 mx-auto ">
+                     <img src="./jobs.png" alt="">
+                 </div>
+                 <div class="text-center">
+                     <h2 class="font-semibold text-xl md:text-2xl text-[#002C5C]"> No jobs Available</h2>
+                     <p class="text-[#64748B]">Check bacak soon for new job opportunities</p>
+                 </div>
+         </div>
+        <section id="all-cards" class="space-y-5 ">
             <div class="card bg-base-100 w-full shadow-sm">
             
                 <div class="card-body">
@@ -319,6 +328,6 @@
         </section>
     </section>
 
-    
+    <script src="./script/script.js"></script>
 </body>
 </html>
