@@ -3,7 +3,7 @@ let rejected =[]
 let current = "";
 
 // job tracker section
-
+const section= document.getElementById("clone")
 const total = document.getElementById("total");
 const emptyData = document.getElementById('no-data')
 // btn section 
@@ -17,6 +17,7 @@ const job = document.getElementById("jobs")
 const all =document.getElementById("all-cards");
 const inter = document.getElementById("interview");
 const reject = document.getElementById("rejected");
+const main = document.getElementById("main")
 
 
 
@@ -27,6 +28,7 @@ total.innerText=all.children.length;
 inter.innerText= interview.length;
 reject.innerText=rejected.length;
 console.log(interview);
+
 
 
 }
@@ -53,24 +55,45 @@ function toggleStyle (id){
     selected.classList.add("text-white","bg-[#3B82F6]");
         current = id;
     if(id === "interview-btn"){
-        all.classList.add("hidden");
         job.innerText =`${interview.length} out of ${all.children.length} jobs`
-        emptyData.classList.remove('hidden')
+        if(interview.length === 0){
+            
+            all.classList.add("hidden");
+            emptyData.classList.remove('hidden')
+            
+        }else{
+            all.classList.add("hidden")
+            emptyData.classList.add('hidden')
+            section.classList.remove("hidden")
+            renduringInterview()
+            
 
-    }else if(id === "rejected-btn"){
+        }
+
+
+    }else if(id === "rejected-btn" && rejected.length === 0){
         all.classList.add("hidden");
-        emptyData.classList.remove('hidden')
         job.innerText =`${rejected.length} out of ${all.children.length} jobs`
-
+        emptyData.classList.remove('hidden')
+        
+            
+        
+    }else if(id === "rejected-btn" && rejected.length>0){
+            all.classList.add("hidden")
+            section.classList.remove("hidden")
+            emptyData.classList.add("hidden")
+            rendurRejcted();
+         
     }else{
          all.classList.remove("hidden");
         emptyData.classList.add('hidden')
         lengt()
         count()
+        
     }
 }
 
-all.addEventListener("click",function(envt){
+main.addEventListener("click",function(envt){
     if(envt.target.classList.contains("trash",)){
         const paranNode = envt.target.parentNode.parentNode;
                  const jobName = paranNode.querySelector(".card-title").innerText;
@@ -82,9 +105,14 @@ all.addEventListener("click",function(envt){
         
         interview = interview.filter(item=> item.jobName !== info.jobName);
         rejected = rejected.filter(item=> item.jobName !== info.jobName);
-        if ("trash" ==="trash") {
+        
             paranNode.remove()
-        } 
+            if(interview.length ===0){
+                emptyData.classList.remove("hidden")
+           
+         }else if(rejected.length === 0){
+            emptyData.classList.remove('hidden')
+         }
         count()
     }else if(envt.target.classList.contains("interview")){
          const paranNode = envt.target.parentNode.parentNode;
@@ -98,20 +126,28 @@ all.addEventListener("click",function(envt){
         const jobExisting = interview.find(item=> item.jobName == info.jobName)
         if (!jobExisting) {
             interview.push(info)
-            count()
 
         }
-
-        rejected =  rejected.filter(item=> item.jobName !== info.jobName);
-        count()
         
+        
+        rejected =  rejected.filter(item=> item.jobName !== info.jobName);
+if (current === "interview-btn") {
+    renduringInterview();
+}
+else if (current === "rejected-btn") {
+    emptyData.classList.remove("hidden");
+    rendurRejcted();
+}
+ count()       
         
         
     
     }else if(envt.target.classList.contains("reject")){
          const paranNode = envt.target.parentNode.parentNode;
          const jobName = paranNode.querySelector(".card-title").innerText;
-    
+         console.log(paranNode);
+         
+         
         const info = {
             jobName,
         }
@@ -120,12 +156,93 @@ all.addEventListener("click",function(envt){
         const jobExisting = rejected.find(item=> item.jobName == info.jobName)
         if (!jobExisting) {
             rejected.push(info)
-            count()
         }
+        
         interview =  interview.filter(item=> item.jobName !== info.jobName);
-        count()
+        if (current === "interview-btn") {
+            emptyData.classList.remove("hidden")
+    renduringInterview();
+}
+else if (current === "rejected-btn") {
+    rendurRejcted();
+}
+count()
         
     }
     
     lengt()
 })
+
+
+function renduringInterview (){
+   section.innerText="";
+
+   for (const intr of interview) {
+       let div = document.createElement("div");
+       div.className ="card bg-base-100 w-full shadow-sm";
+       div.innerHTML=` <div class="card-body">
+                    <h2 class="card-title">
+                    ${intr.jobName}                      
+                    </h2>
+
+                    <p id="position" class="text-[#64748B]">React Native Developer</p>
+                    <p class="my-5">
+                        Remote • Full-time • $130,000 - $175,000
+                    </p>
+                    <div>
+                         <button class="btn py-2.5 px-8 btn-active border-none bg-[#002C5C]/10 text-[#002C5C]">
+                            REJECTED
+                        </button>
+                    </div>
+                    <p>Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+                    <div class="card-actions justify-start">
+                        <button class="interview btn btn-active border border-green-500 bg-white text-green-500">
+                            INTERVIEW
+                        </button>
+                        <button class="reject btn btn-active border border-red-500  bg-white text-red-500">
+                            REJECTED
+                        </button>
+                    </div>
+                </div>
+                <div class=" w-[50px] h-[50px] rounded-full shadow-2xl text-center shadow-[#64748B] border border-[#64748B] content-center absolute right-2 top-5"><i class="cursor-pointer trash fa-solid fa-trash-can"></i> </div>`
+
+                section.appendChild(div)
+   }
+
+}
+function rendurRejcted (){
+   section.innerText="";
+
+   for (const intr of rejected) {
+       let div = document.createElement("div");
+       div.className ="card bg-base-100 w-full shadow-sm";
+       div.innerHTML=` <div class="card-body">
+                    <h2 class="card-title">
+                    ${intr.jobName}                      
+                    </h2>
+
+                    <p id="position" class="text-[#64748B]">React Native Developer</p>
+                    <p class="my-5">
+                        Remote • Full-time • $130,000 - $175,000
+                    </p>
+                    <div>
+                         <button class="btn py-2.5 px-8 btn-active border-none bg-[#002C5C]/10 text-[#002C5C]">
+                            REJECTED
+                        </button>
+                    </div>
+                    <p>Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+                    <div class="card-actions justify-start">
+                        <button class="interview btn btn-active border border-green-500 bg-white text-green-500">
+                            INTERVIEW
+                        </button>
+                        <button class="reject btn btn-active border border-red-500  bg-white text-red-500">
+                            REJECTED
+                        </button>
+                    </div>
+                </div>
+                <div class=" w-[50px] h-[50px] rounded-full shadow-2xl text-center shadow-[#64748B] border border-[#64748B] content-center absolute right-2 top-5"><i class="cursor-pointer trash fa-solid fa-trash-can"></i> </div>`
+
+                section.appendChild(div)
+   }
+
+}
