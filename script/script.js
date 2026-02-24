@@ -25,6 +25,7 @@ function count(){
 job.innerText=`${all.children.length} jobs`
 total.innerText=all.children.length;
 inter.innerText= interview.length;
+reject.innerText=rejected.length;
 console.log(interview);
 
 
@@ -53,25 +54,36 @@ function toggleStyle (id){
         current = id;
     if(id === "interview-btn"){
         all.classList.add("hidden");
+        job.innerText =`${interview.length} out of ${all.children.length} jobs`
         emptyData.classList.remove('hidden')
+
     }else if(id === "rejected-btn"){
         all.classList.add("hidden");
         emptyData.classList.remove('hidden')
+        job.innerText =`${rejected.length} out of ${all.children.length} jobs`
+
     }else{
          all.classList.remove("hidden");
         emptyData.classList.add('hidden')
         lengt()
+        count()
     }
 }
 
 all.addEventListener("click",function(envt){
     if(envt.target.classList.contains("trash",)){
         const paranNode = envt.target.parentNode.parentNode;
+                 const jobName = paranNode.querySelector(".card-title").innerText;
+    
+        const info = {
+            jobName
+        }
+
         
-       
+        interview = interview.filter(item=> item.jobName !== info.jobName);
+        rejected = rejected.filter(item=> item.jobName !== info.jobName);
         if ("trash" ==="trash") {
             paranNode.remove()
-            
         } 
         count()
     }else if(envt.target.classList.contains("interview")){
@@ -79,7 +91,7 @@ all.addEventListener("click",function(envt){
          const jobName = paranNode.querySelector(".card-title").innerText;
     
         const info = {
-            jobName
+            jobName,
         }
         console.log(info);
         
@@ -87,8 +99,31 @@ all.addEventListener("click",function(envt){
         if (!jobExisting) {
             interview.push(info)
             count()
+
         }
+
+        rejected =  rejected.filter(item=> item.jobName !== info.jobName);
+        count()
         
+        
+        
+    
+    }else if(envt.target.classList.contains("reject")){
+         const paranNode = envt.target.parentNode.parentNode;
+         const jobName = paranNode.querySelector(".card-title").innerText;
+    
+        const info = {
+            jobName,
+        }
+        console.log(info);
+        
+        const jobExisting = rejected.find(item=> item.jobName == info.jobName)
+        if (!jobExisting) {
+            rejected.push(info)
+            count()
+        }
+        interview =  interview.filter(item=> item.jobName !== info.jobName);
+        count()
         
     }
     
