@@ -132,7 +132,7 @@ main.addEventListener("click",function(envt){
         const info = {
             jobName,
             position,
-            state :"INTERVIEW"
+            state:"INTERVIEW" 
             
         }
         
