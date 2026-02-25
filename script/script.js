@@ -23,7 +23,6 @@ const main = document.getElementById("main")
 
 
 function count(){
-job.innerText=`${all.children.length} jobs`
 total.innerText=all.children.length;
 inter.innerText= interview.length;
 reject.innerText=rejected.length;
@@ -55,13 +54,14 @@ function toggleStyle (id){
     selected.classList.add("text-white","bg-[#3B82F6]");
         current = id;
     if(id === "interview-btn"){
-        job.innerText =`${interview.length} out of ${all.children.length} jobs`
         if(interview.length === 0){
+            job.innerText =`${interview.length} out of ${all.children.length} jobs`
             
             all.classList.add("hidden");
             emptyData.classList.remove('hidden')
             
         }else{
+            job.innerText =`${interview.length} out of ${all.children.length} jobs`
             all.classList.add("hidden")
             emptyData.classList.add('hidden')
             section.classList.remove("hidden")
@@ -76,69 +76,91 @@ function toggleStyle (id){
         job.innerText =`${rejected.length} out of ${all.children.length} jobs`
         emptyData.classList.remove('hidden')
         
-            
+        
         
     }else if(id === "rejected-btn" && rejected.length>0){
-            all.classList.add("hidden")
-            section.classList.remove("hidden")
-            emptyData.classList.add("hidden")
-            rendurRejcted();
-         
+        all.classList.add("hidden")
+        section.classList.remove("hidden")
+        emptyData.classList.add("hidden")
+        rendurRejcted();
+        job.innerText =`${rejected.length} out of ${all.children.length} jobs`
+        
     }else{
-         all.classList.remove("hidden");
+        all.classList.remove("hidden");
         emptyData.classList.add('hidden')
+        section.classList.add("hidden")
         lengt()
         count()
         
     }
 }
 
+function updateHeaderCount(){
+    if(current === "interview-btn"){
+        job.innerText = `${interview.length} out of ${all.children.length} jobs`
+    }
+    else if(current === "rejected-btn"){
+        job.innerText = `${rejected.length} out of ${all.children.length} jobs`
+    }
+    else{
+        job.innerText = `${all.children.length} jobs`
+    }
+}
 main.addEventListener("click",function(envt){
     if(envt.target.classList.contains("trash",)){
         const paranNode = envt.target.parentNode.parentNode;
-                 const jobName = paranNode.querySelector(".card-title").innerText;
-    
+        const jobName = paranNode.querySelector(".card-title").innerText;
+        
         const info = {
             jobName
         }
-
+        
         
         interview = interview.filter(item=> item.jobName !== info.jobName);
         rejected = rejected.filter(item=> item.jobName !== info.jobName);
         
-            paranNode.remove()
-            if(interview.length ===0){
-                emptyData.classList.remove("hidden")
-           
-         }else if(rejected.length === 0){
+        paranNode.remove()
+        if(interview.length ===0){
+            emptyData.classList.remove("hidden")
+            
+        }else if(rejected.length === 0){
             emptyData.classList.remove('hidden')
-         }
+        }
         count()
     }else if(envt.target.classList.contains("interview")){
-         const paranNode = envt.target.parentNode.parentNode;
-         const jobName = paranNode.querySelector(".card-title").innerText;
-    
+        const paranNode = envt.target.parentNode.parentNode;
+        const jobName = paranNode.querySelector(".card-title").innerText;
+        const position = paranNode.querySelector(".position").innerText;
+        const state = paranNode.querySelector(".state").innerText;
+        
         const info = {
             jobName,
+            position,
+            state :"INTERVIEW"
+            
         }
-        console.log(info);
         
         const jobExisting = interview.find(item=> item.jobName == info.jobName)
+        paranNode.querySelector(".state").innerText= "INTERVIEW"
+        paranNode.querySelector(".state").classList.remove("border-none", "bg-[#002C5C]/10", "text-[#002C5C]")
+        paranNode.querySelector(".state").classList.add("border", "border-green-500", "bg-white", "text-green-500")
         if (!jobExisting) {
             interview.push(info)
-
+            
         }
         
         
         rejected =  rejected.filter(item=> item.jobName !== info.jobName);
-if (current === "interview-btn") {
+        if (current === "interview-btn") {
     renduringInterview();
 }
 else if (current === "rejected-btn") {
     emptyData.classList.remove("hidden");
     rendurRejcted();
 }
- count()       
+
+count()
+updateHeaderCount()
         
         
     
@@ -151,7 +173,6 @@ else if (current === "rejected-btn") {
         const info = {
             jobName,
         }
-        console.log(info);
         
         const jobExisting = rejected.find(item=> item.jobName == info.jobName)
         if (!jobExisting) {
@@ -167,6 +188,7 @@ else if (current === "rejected-btn") {
     rendurRejcted();
 }
 count()
+updateHeaderCount()
         
     }
     
@@ -185,13 +207,13 @@ function renduringInterview (){
                     ${intr.jobName}                      
                     </h2>
 
-                    <p id="position" class="text-[#64748B]">React Native Developer</p>
+                    <p id="position" class="text-[#64748B]">${intr.position}</p>
                     <p class="my-5">
                         Remote • Full-time • $130,000 - $175,000
                     </p>
                     <div>
-                         <button class="btn py-2.5 px-8 btn-active border-none bg-[#002C5C]/10 text-[#002C5C]">
-                            REJECTED
+                         <button class="btn py-2.5 px-8 btn-active border border-green-500 bg-white text-green-500">
+                            ${intr.state}
                         </button>
                     </div>
                     <p>Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
