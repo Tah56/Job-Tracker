@@ -91,6 +91,7 @@ function toggleStyle (id){
         section.classList.add("hidden")
         lengt()
         count()
+        updateHeaderCount()
         
     }
 }
@@ -118,15 +119,10 @@ main.addEventListener("click",function(envt){
         
         interview = interview.filter(item=> item.jobName !== info.jobName);
         rejected = rejected.filter(item=> item.jobName !== info.jobName);
-        
+       
         paranNode.remove()
-        if(interview.length ===0){
-            emptyData.classList.remove("hidden")
-            
-        }else if(rejected.length === 0){
-            emptyData.classList.remove('hidden')
-        }
         count()
+        toggleStyle(current)
     }else if(envt.target.classList.contains("interview")){
         const paranNode = envt.target.parentNode.parentNode;
         const jobName = paranNode.querySelector(".card-title").innerText;
@@ -144,6 +140,8 @@ main.addEventListener("click",function(envt){
         paranNode.querySelector(".state").innerText= "INTERVIEW"
         paranNode.querySelector(".state").classList.remove("border-none", "bg-[#002C5C]/10", "text-[#002C5C]")
         paranNode.querySelector(".state").classList.add("border", "border-green-500", "bg-white", "text-green-500")
+        paranNode.querySelector(".state").classList.remove("border", "border-red-500", "text-red-500")
+
         if (!jobExisting) {
             interview.push(info)
             
@@ -151,35 +149,47 @@ main.addEventListener("click",function(envt){
         
         
         rejected =  rejected.filter(item=> item.jobName !== info.jobName);
+        paranNode.querySelector(".state").innerText= "INTERVIEW";
         if (current === "interview-btn") {
-    renduringInterview();
-}
-else if (current === "rejected-btn") {
-    emptyData.classList.remove("hidden");
-    rendurRejcted();
-}
-
-count()
-updateHeaderCount()
+            renduringInterview();
+        }
+        else if (current === "rejected-btn") {
+            emptyData.classList.remove("hidden");
+            rendurRejcted();
+        }
+        
+        count()
+        updateHeaderCount()
         
         
-    
+        
     }else if(envt.target.classList.contains("reject")){
-         const paranNode = envt.target.parentNode.parentNode;
-         const jobName = paranNode.querySelector(".card-title").innerText;
-         console.log(paranNode);
-         
-         
+        const paranNode = envt.target.parentNode.parentNode;
+        const jobName = paranNode.querySelector(".card-title").innerText;
+        const position = paranNode.querySelector(".position").innerText;
+        const state = paranNode.querySelector(".state").innerText;
+        
+        
+        console.log(paranNode);
+        
         const info = {
             jobName,
+            position,
+            state:"REJECTED"
         }
         
         const jobExisting = rejected.find(item=> item.jobName == info.jobName)
+        paranNode.querySelector(".state").innerText= "REJECTED"
+        paranNode.querySelector(".state").classList.remove("border-none", "bg-[#002C5C]/10", "text-[#002C5C]")
+        paranNode.querySelector(".state").classList.add("border", "border-red-500", "bg-white", "text-red-500")
+        
         if (!jobExisting) {
             rejected.push(info)
         }
         
         interview =  interview.filter(item=> item.jobName !== info.jobName);
+        paranNode.querySelector(".state").innerText= "REJECTED";
+
         if (current === "interview-btn") {
             emptyData.classList.remove("hidden")
     renduringInterview();
@@ -207,12 +217,12 @@ function renduringInterview (){
                     ${intr.jobName}                      
                     </h2>
 
-                    <p id="position" class="text-[#64748B]">${intr.position}</p>
+                    <p id="position" class="position text-[#64748B]">${intr.position}</p>
                     <p class="my-5">
                         Remote • Full-time • $130,000 - $175,000
                     </p>
                     <div>
-                         <button class="btn py-2.5 px-8 btn-active border border-green-500 bg-white text-green-500">
+                         <button class="btn py-2.5 px-8 state btn-active border border-green-500 bg-white text-green-500">
                             ${intr.state}
                         </button>
                     </div>
@@ -243,13 +253,13 @@ function rendurRejcted (){
                     ${intr.jobName}                      
                     </h2>
 
-                    <p id="position" class="text-[#64748B]">React Native Developer</p>
+                    <p id="position" class="position text-[#64748B]">${intr.position}</p>
                     <p class="my-5">
                         Remote • Full-time • $130,000 - $175,000
                     </p>
                     <div>
-                         <button class="btn py-2.5 px-8 btn-active border-none bg-[#002C5C]/10 text-[#002C5C]">
-                            REJECTED
+                         <button class="btn py-2.5 state px-8 btn-active border border-red-500 bg-white text-red-500">
+                            ${intr.state}
                         </button>
                     </div>
                     <p>Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
