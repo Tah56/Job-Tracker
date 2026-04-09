@@ -1,37 +1,78 @@
-Assignment Questions & Answers
-1. Difference between getElementById, getElementsByClassName, and querySelector/querySelectorAll?
+# 💼 Job Tracker
 
-Answer: জাভাস্ক্রিপ্টে এইচটিএমএল এলিমেন্ট ধরার জন্য আমরা এই মেথডগুলো ব্যবহার করি।
+A clean and responsive **Job Tracker** web application built to help users manage job applications, organize application status, and track their progress in one place.  
+This project is designed to simulate a real-world workflow for keeping job hunting organized and efficient.
 
-getElementById ব্যবহার করি যখন কোনো এলিমেন্টের ইউনিক আইডি (ID) দিয়ে তাকে ধরতে চাই। এটা সবসময় একটা সিঙ্গেল এলিমেন্ট দেয়।
+---
 
-getElementsByClassName ব্যবহার করি যখন একই ক্লাসের অনেকগুলো এলিমেন্টকে একসাথে ধরতে চাই। এটা একটা লিস্ট বা কালেকশন রিটার্ন করে।
+## 📌 Overview
 
-querySelector অনেক বেশি ফ্লেক্সিবল। এটা দিয়ে সিএসএস স্টাইলে (যেমন- .class বা #id) এলিমেন্ট ধরা যায়। এটা শুধু প্রথম এলিমেন্টটাকে ধরে।
+The **Job Tracker** allows users to keep track of job applications by storing important details such as company name, role, and application status.  
+It helps users stay organized while also demonstrating practical frontend development skills through a clean and structured interface.
 
-querySelectorAll দিয়ে একই স্টাইলের সব এলিমেন্টকে একটা লিস্ট হিসেবে পাওয়া যায়।
+This project helped me practice:
+- Dynamic UI rendering
+- Filtering and searching
+- Local data handling
+- Responsive layout design
+- Building modern UI with **Tailwind CSS**
 
-2. How do you create and insert a new element into the DOM?
+---
 
-Answer: DOM-এ নতুন এলিমেন্ট যোগ করার জন্য প্রথমে document.createElement('tagName') দিয়ে এলিমেন্টটি তৈরি করে নিতে হয়। যেমন: const newDiv = document.createElement('div');। এরপর সেটির ভেতরে কোনো টেক্সট বা ক্লাস যোগ করি। সবশেষে appendChild() অথবা prepend() মেথড ব্যবহার করে আমাদের মেইন এইচটিএমএল পেজের নির্দিষ্ট কোনো জায়গার ভেতরে সেটাকে ঢুকিয়ে দিই।
+## 🚀 Live Demo
 
-3. What is Event Bubbling? And how does it work?
+🔗 **Live Link:** [Add your live project link here](https://your-live-link.com)
 
-Answer: ইভেন্ট বাবলিং হলো জাভাস্ক্রিপ্টের একটা সিস্টেম। যখন আমরা কোনো এলিমেন্টে (যেমন- একটা বাটন) ক্লিক করি, সেই ক্লিক ইভেন্টটা শুধু ওই বাটনেই থাকে না, বরং সেটা ক্রমান্বয়ে তার ওপরের প্যারেন্ট এলিমেন্টগুলোর দিকেও চলে যায়। ঠিক যেমন পানির নিচের বুদবুদ ওপরের দিকে ওঠে। যদি ওপরের কোনো ডিভ বা সেকশনেও ক্লিক ইভেন্ট থাকে, সেগুলোও তখন কাজ করা শুরু করে।
+> Replace the link above with your actual deployed URL (Vercel / Netlify / GitHub Pages).
 
-4. What is Event Delegation in JavaScript? Why is it useful?
+---
 
-Answer: ইভেন্ট ডেলিগেশন হলো—অনেকগুলো চাইল্ড এলিমেন্টে আলাদা আলাদা করে লিসেনার না দিয়ে, তাদের কমন কোনো বড় প্যারেন্ট এলিমেন্টে একটা মাত্র ইভেন্ট লিসেনার দেওয়া।
-এটি অনেক কাজের কারণ:
+## 🖼️ Screenshot
 
-অনেকগুলো লিসেনার না লিখে একটা লিখলেই হয়, এতে মেমোরি বাঁচে।
+![Project Screenshot](./screenshot.png)
 
-জাভাস্ক্রিপ্ট দিয়ে পরে নতুন কোনো এলিমেন্ট যোগ করলে সেগুলোর জন্যও আলাদা করে কোড লিখতে হয় না, প্যারেন্ট লিসেনার দিয়েই কাজ চালিয়ে নেওয়া যায়।
+> Add a screenshot named `screenshot.png` in your project root folder for a better presentation.
 
-5. What is the difference between preventDefault() and stopPropagation() methods?
+---
 
-Answer: এই দুইটার কাজ আলাদা:
+## ✨ Key Features
 
-preventDefault() ব্যবহার করি ব্রাউজারের কোনো জন্মগত বা ডিফল্ট কাজ থামানোর জন্য। যেমন- একটা ফর্ম সাবমিট করলে পেজ রিলোড হয়, এটা আমরা চাইলে preventDefault() দিয়ে থামিয়ে দিতে পারি।
+- 📝 Add and manage job applications
+- 🏢 Track company name, job title, and application details
+- 📊 Monitor application status (Applied / Interview / Rejected / Offer)
+- 🔍 Search and filter applications
+- 📱 Fully responsive design
+- ⚡ Clean and modern UI built with Tailwind CSS
+- 💾 Local data handling for practice workflow
 
-stopPropagation() ব্যবহার করি ইভেন্ট বাবলিং থামানোর জন্য। অর্থাৎ কোনো এলিমেন্টে ক্লিক করলে সেই ইভেন্টটা যেন তার ওপরের প্যারেন্টদের কাছে না পৌঁছায়, সেটা নিশ্চিত করার জন্য এটি ব্যবহার করা হয়।
+---
+
+## 🛠️ Technologies Used
+
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=html,js,tailwindcss,git,github,vscode" />
+
+</div>
+
+---
+
+## 📦 Dependencies
+
+This project uses:
+
+- **Tailwind CSS**
+- **JavaScript**
+
+> If you used any extra library or CDN, mention it here.
+
+---
+
+## 📂 Project Structure
+
+```bash id="fg0wyy"
+job-tracker/
+│── index.html
+│── script.js
+│── screenshot.png
+│── README.md
