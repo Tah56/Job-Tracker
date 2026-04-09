@@ -23,8 +23,6 @@ This project helped me practice:
 
 🔗 **Live Link:(https://tah56.github.io/Job-Tracker/)
 
-> Replace the link above with your actual deployed URL (Vercel / Netlify / GitHub Pages).
-
 ---
 
 ## ✨ Key Features
@@ -55,8 +53,6 @@ This project uses:
 
 - **Tailwind CSS**
 - **JavaScript**
-
-> If you used any extra library or CDN, mention it here.
 
 ---
 
