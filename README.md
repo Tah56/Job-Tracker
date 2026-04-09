@@ -21,17 +21,9 @@ This project helped me practice:
 
 ## 🚀 Live Demo
 
-🔗 **Live Link:** [Add your live project link here](https://your-live-link.com)
+🔗 **Live Link:(https://tah56.github.io/Job-Tracker/)
 
 > Replace the link above with your actual deployed URL (Vercel / Netlify / GitHub Pages).
-
----
-
-## 🖼️ Screenshot
-
-![Project Screenshot](./screenshot.png)
-
-> Add a screenshot named `screenshot.png` in your project root folder for a better presentation.
 
 ---
 
@@ -68,11 +60,3 @@ This project uses:
 
 ---
 
-## 📂 Project Structure
-
-```bash id="fg0wyy"
-job-tracker/
-│── index.html
-│── script.js
-│── screenshot.png
-│── README.md
